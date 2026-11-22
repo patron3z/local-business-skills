@@ -18,8 +18,6 @@ Ask Claude things like "who are my competitors in Laval and what do they charge?
 /plugin install local-business-tools@local-business-skills
 ```
 
-The repository is private by default; the command works for the account that owns it. Make it public if you want others to install it.
-
 **Claude Code (manual):** copy `plugins/local-business-tools/skills/competitor-watch` and `.../datapipe` into `~/.claude/skills/`.
 
 **Claude.ai and Claude desktop:** run `python tools/build_zips.py`, then in Claude open Customize, Skills, add a skill, and upload each zip from `dist/`. Code execution must be enabled.
