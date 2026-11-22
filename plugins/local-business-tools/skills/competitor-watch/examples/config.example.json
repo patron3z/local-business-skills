@@ -1,0 +1,25 @@
+{
+  "project": "Dentists in Austin",
+  "language": "en",
+  "data_dir": "data",
+  "address": { "region_pattern": "(TX|Texas)\\b" },
+  "maps": {
+    "kit_path": "D:/repos/google-maps-scraper-kit",
+    "lang": "en",
+    "country": "us",
+    "depth": 2,
+    "cities": ["Austin, TX", "Round Rock, TX", "Cedar Park, TX"]
+  },
+  "services": {
+    "dentist": {
+      "label": "Dentists",
+      "keywords": ["dentist", "family dentist"],
+      "category_regex": "dentist|dental",
+      "top_per_sector": 3,
+      "price": { "mode": "amounts", "min": 20, "max": 5000 }
+    }
+  },
+  "competitors": [
+    { "name": "Example Dental", "service": "dentist", "pages": ["https://example.com/pricing"] }
+  ]
+}

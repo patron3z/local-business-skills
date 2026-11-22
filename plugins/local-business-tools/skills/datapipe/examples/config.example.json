@@ -1,0 +1,23 @@
+{
+  "project": "My sales report",
+  "language": "en",
+  "kpis": ["revenue", "orders"],
+  "sources": {
+    "sales": {
+      "path": "data/sales.csv",
+      "columns": { "Order Date": "date", "Total": "amount", "Customer Region": "region" },
+      "types": { "date": "date", "amount": "money" },
+      "date_order": "mdy",
+      "dedupe": ["order_id"],
+      "drop_missing": ["date", "amount"],
+      "filters": [{ "field": "amount", "op": "gt", "value": 0 }]
+    }
+  },
+  "metrics": [
+    { "id": "revenue", "label": "Revenue", "source": "sales", "measure": "sum", "field": "amount", "unit": "$" },
+    { "id": "orders", "label": "Orders", "source": "sales", "measure": "count" },
+    { "id": "revenue_by_month", "label": "Revenue by month", "source": "sales", "measure": "sum", "field": "amount", "by": ["month:date"], "unit": "$" },
+    { "id": "revenue_by_region", "label": "Revenue by region", "source": "sales", "measure": "sum", "field": "amount", "by": ["region"], "unit": "$", "top": 10 }
+  ],
+  "outputs": { "dir": "out", "html": "report.html", "clean_csv": true }
+}

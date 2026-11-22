@@ -1,0 +1,6 @@
+{
+  "name": "local-business-tools",
+  "description": "Two skills for small local businesses: competitor-watch maps the local competition and tracks the prices competitors publish; datapipe cleans business exports and writes an analysis report. Python standard library only, no API key.",
+  "version": "0.1.0",
+  "keywords": ["competitor analysis", "price tracking", "data analysis", "small business", "skill"]
+}

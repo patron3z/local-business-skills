@@ -1,0 +1,51 @@
+{
+  "project": "Déménagements Exemple – tableau de bord des opérations",
+  "subtitle": "Rapport d'analyse",
+  "sample_notice": "Exemple : toutes les données de ce rapport sont fictives.",
+  "language": "fr",
+  "sources": {
+    "jobs": {
+      "path": "data/jobs.csv",
+      "columns": { "Revenu": "revenue", "Heures": "hours", "Ville": "city", "Équipe": "crew", "ID Job": "job_id" },
+      "types": { "date": "date", "revenue": "money", "hours": "number" },
+      "date_order": "dmy",
+      "dedupe": ["job_id"],
+      "drop_missing": ["date", "revenue"],
+      "filters": [{ "field": "revenue", "op": "lte", "value": 8000 }]
+    },
+    "leads": {
+      "path": "data/leads.csv",
+      "columns": { "Converti": "converted" },
+      "types": { "date": "date", "converted": "bool" },
+      "date_order": "dmy",
+      "dedupe": ["lead_id"],
+      "drop_missing": ["date"]
+    },
+    "expenses": {
+      "path": "data/expenses.csv",
+      "columns": { "Catégorie": "category", "Montant": "amount" },
+      "types": { "date": "date", "amount": "money" },
+      "drop_missing": ["date", "amount"]
+    }
+  },
+  "joins": [
+    { "name": "jobs_leads", "left": "jobs", "right": "leads", "on": ["lead_id"], "how": "left" }
+  ],
+  "kpis": ["revenue_total", "jobs_count", "revenue_per_hour", "lead_conversion"],
+  "metrics": [
+    { "id": "revenue_total", "label": "Revenus", "source": "jobs", "measure": "sum", "field": "revenue", "unit": "$" },
+    { "id": "jobs_count", "label": "Travaux réalisés", "source": "jobs", "measure": "count" },
+    { "id": "revenue_per_hour", "label": "Revenu par heure", "source": "jobs", "measure": "ratio", "num": "revenue", "den": "hours", "unit": "$/h" },
+    { "id": "lead_conversion", "label": "Demandes converties", "source": "leads", "measure": "rate", "field": "converted", "unit": "%" },
+    { "id": "revenue_by_month", "label": "Revenus par mois", "source": "jobs", "measure": "sum", "field": "revenue", "by": ["month:date"], "unit": "$" },
+    { "id": "revenue_by_service", "label": "Revenus par service", "source": "jobs", "measure": "sum", "field": "revenue", "by": ["service"], "unit": "$" },
+    { "id": "revenue_per_hour_by_service", "label": "Revenu par heure, par service", "source": "jobs", "measure": "ratio", "num": "revenue", "den": "hours", "by": ["service"], "unit": "$/h" },
+    { "id": "revenue_by_city", "label": "Revenus par ville (10 premières)", "source": "jobs", "measure": "sum", "field": "revenue", "by": ["city"], "unit": "$", "top": 10 },
+    { "id": "revenue_by_source", "label": "Revenus par source de demande", "source": "jobs_leads", "measure": "sum", "field": "revenue", "by": ["source"], "unit": "$" },
+    { "id": "leads_by_month", "label": "Demandes reçues par mois", "source": "leads", "measure": "count", "by": ["month:date"] },
+    { "id": "conversion_by_source", "label": "Taux de conversion par source", "source": "leads", "measure": "rate", "field": "converted", "by": ["source"], "unit": "%" },
+    { "id": "expenses_by_month", "label": "Dépenses par mois", "source": "expenses", "measure": "sum", "field": "amount", "by": ["month:date"], "unit": "$" },
+    { "id": "expenses_by_category", "label": "Dépenses par catégorie", "source": "expenses", "measure": "sum", "field": "amount", "by": ["category"], "unit": "$" }
+  ],
+  "outputs": { "dir": "out", "html": "rapport.html", "clean_csv": true }
+}

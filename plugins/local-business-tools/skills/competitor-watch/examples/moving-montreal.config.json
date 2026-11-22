@@ -1,0 +1,35 @@
+{
+  "project": "Déménagement Montréal",
+  "language": "fr",
+  "data_dir": "data",
+  "address": { "region_pattern": "(QC|Qu[ée]bec)\\b" },
+  "maps": {
+    "kit_path": "D:/repos/google-maps-scraper-kit",
+    "lang": "fr",
+    "country": "ca",
+    "depth": 2,
+    "cities": ["Montréal, QC", "Laval, QC", "Longueuil, QC", "Brossard, QC", "Boucherville, QC",
+               "Repentigny, QC", "Terrebonne, QC", "Blainville, QC", "Saint-Eustache, QC", "Châteauguay, QC"]
+  },
+  "services": {
+    "moving": {
+      "label": "Déménageurs",
+      "keywords": ["déménageurs"],
+      "category_regex": "d[ée]m[ée]nag|moving|mover|relocation",
+      "top_per_sector": 3,
+      "price": { "mode": "rate", "unit_regex": "(?:/|par|de l.?|l.?)\\s?(?:h\\b|heure)", "min": 40, "max": 400 }
+    },
+    "debris": {
+      "label": "Ramassage de débris",
+      "keywords": ["ramassage de débris", "débarras", "junk removal"],
+      "category_regex": "d[ée]barras|d[ée]bris|junk|rubbish|waste|d[ée]chet|ramassage|enl[èe]vement|remov|conteneur|dumpster|\\bbins?\\b|encombrant",
+      "top_per_sector": 3,
+      "price": { "mode": "amounts", "min": 30, "max": 2000 }
+    }
+  },
+  "competitors": [
+    { "name": "Déménagement Bon Avenir", "service": "moving", "pages": ["https://www.bonavenir.ca/demenagement-nos-prix/"] },
+    { "name": "MovinGo", "service": "moving", "pages": ["https://movingo.ca/"] },
+    { "name": "Déménagement Total", "service": "moving", "pages": ["https://demenagement-total.ca/en/best-moving-price/"] }
+  ]
+}

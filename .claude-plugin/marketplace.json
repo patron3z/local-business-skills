@@ -1,0 +1,13 @@
+{
+  "name": "local-business-skills",
+  "description": "Skills for small local businesses: competitor watch and data-analysis pipeline.",
+  "owner": { "name": "patron3z" },
+  "plugins": [
+    {
+      "name": "local-business-tools",
+      "source": "./plugins/local-business-tools",
+      "description": "competitor-watch (local competition map and price tracking) and datapipe (clean exports, compute metrics, write a report).",
+      "category": "business"
+    }
+  ]
+}
