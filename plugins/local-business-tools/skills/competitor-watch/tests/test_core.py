@@ -1,4 +1,4 @@
-import csv, json, sys, tempfile, unittest
+import csv, json, re, sys, tempfile, unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
@@ -80,7 +80,7 @@ class MapsCsv(unittest.TestCase):
                                 address="1 Rue, Montréal, QC H1A", review_rating="4.8", review_count="120"))  # duplicate
                 w.writerow(dict(title="Pizza", phone="", website="", category="Restaurant", address="2 Rue, Laval, QC", review_rating="4", review_count="3"))
             cfg = {"address": {"region_pattern": REGION}, "_t": cw.STRINGS["fr"]}
-            scfg = {"_regex": __import__("re").compile("d[ée]m[ée]nag|moving", 2)}
+            scfg = {"_regex": re.compile("d[ée]m[ée]nag|moving", re.I)}
             rows = cw.read_maps_csv(p, scfg, cfg)
             self.assertEqual(len(rows), 1)
             self.assertEqual(rows[0]["sector"], "Montréal")

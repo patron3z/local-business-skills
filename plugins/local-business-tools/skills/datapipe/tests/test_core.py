@@ -58,7 +58,8 @@ class Cleaning(unittest.TestCase):
         self.assertIsNone(rows[1]["margin"])
 
     def test_expression_is_safe(self):
-        self.assertIsNone(dp.safe_eval("__import__('os').system('echo hi')", {}))
+        self.assertIsNone(dp.safe_eval("abs(-1)", {}))             # function calls are refused
+        self.assertIsNone(dp.safe_eval("a ** 2", {"a": 3}))        # only + - * / are allowed
         self.assertEqual(dp.safe_eval("a * 2", {"a": 4}), 8)
 
 

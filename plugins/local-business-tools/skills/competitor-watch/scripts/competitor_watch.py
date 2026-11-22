@@ -177,9 +177,13 @@ def cmd_scrape(cfg, args):
             "--max-time", "3000", "--out", str(out)]
     if cfg["maps"].get("country"):
         cmd += ["--country", cfg["maps"]["country"]]
+    for v in kws + list(cfg["maps"]["cities"]):
+        if str(v).startswith("-"):
+            sys.exit(f"Refusing a keyword or city that starts with '-': {v!r}")  # would be read as an option by the kit
     print("Heavy use can get your IP temporarily rate-limited by Google. Keep depth low.")
     print("Run from the kit folder (engine must be running):", " ".join(cmd))
-    sys.exit(subprocess.call(cmd, cwd=str(kit)))
+    # Fixed list of arguments, no shell: config values can never be interpreted as shell commands.
+    sys.exit(subprocess.call(cmd, cwd=str(kit), shell=False))
 
 
 # ----------------------------------------------------------------------------- command: map
