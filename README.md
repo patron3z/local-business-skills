@@ -1,13 +1,13 @@
 # local-business-skills
 
-Two Claude skills for small local businesses. Both are plain Python (standard library only, no API key) and run on your own computer.
+Two [Agent Skills](https://agentskills.io) for small local businesses, for **Claude Code, Claude.ai, Codex, OpenCode and Gemini CLI**. Both are plain Python (standard library only, no API key) and run on your own computer.
 
 | Skill | What it does |
 |---|---|
 | [`competitor-watch`](plugins/local-business-tools/skills/competitor-watch) | Maps the local competition by area (Google Maps listings, ratings, reviews) and tracks the prices competitors publish on their own websites, with a change report on each run. |
 | [`datapipe`](plugins/local-business-tools/skills/datapipe) | Loads exports (CSV, Excel, JSON), cleans and joins them, computes metrics (revenue by month, revenue per hour, conversion by source) and writes an HTML report with findings, charts and a data-quality check. |
 
-Ask Claude things like "who are my competitors in Laval and what do they charge?" or "here are my QuickBooks exports, give me a report by month", and the matching skill takes over. Français : voir plus bas.
+Ask your agent things like "who are my competitors in Laval and what do they charge?" or "here are my QuickBooks exports, give me a report by month", and the matching skill takes over. Français : voir plus bas.
 
 ## Install
 
@@ -21,6 +21,17 @@ Ask Claude things like "who are my competitors in Laval and what do they charge?
 **Claude Code (manual):** copy `plugins/local-business-tools/skills/competitor-watch` and `.../datapipe` into `~/.claude/skills/`.
 
 **Claude.ai and Claude desktop:** run `python tools/build_zips.py`, then in Claude open Customize, Skills, add a skill, and upload each zip from `dist/`. Code execution must be enabled.
+
+**Codex, OpenCode, Gemini CLI.** Each skill is a plain folder with a `SKILL.md` (frontmatter `name` and `description`), the standard Agent Skills layout. Copy `competitor-watch` and `datapipe` from `plugins/local-business-tools/skills/` to the folder your tool reads:
+
+| Tool | User-level folder | Project-level folder |
+|---|---|---|
+| Claude Code | `~/.claude/skills/` | `.claude/skills/` |
+| Codex | `~/.agents/skills/` | `.agents/skills/` |
+| OpenCode | `~/.config/opencode/skills/` | `.opencode/skills/` |
+| Gemini CLI | `~/.gemini/skills/` | `.gemini/skills/` |
+
+OpenCode also reads `~/.claude/skills/` and `~/.agents/skills/`, so one copy can serve several tools. Gemini CLI can also install from a Git URL or a local folder with `gemini skills install`. Folder names differ between tool versions, so check your tool's current documentation. Compatibility here means the skill format and the `python scripts/...` commands; the scripts are tested as plain Python (29 unit tests), but the skills have not yet been run inside any of these agents.
 
 ## Requirements
 
@@ -49,7 +60,7 @@ The same tools exist as ordinary command-line projects: `competitor-watch` and `
 
 Deux skills Claude pour petites entreprises locales, en Python pur (bibliothèque standard, aucune clé). `competitor-watch` cartographie la concurrence par secteur et suit les prix publiés sur les sites des concurrents. `datapipe` nettoie des exports (CSV, Excel, JSON), calcule des indicateurs et écrit un rapport HTML avec constats, graphiques et bilan de qualité des données.
 
-Installation dans Claude Code : `/plugin marketplace add patron3z/local-business-skills` puis `/plugin install local-business-tools@local-business-skills`. Pour claude.ai : `python tools/build_zips.py` et téléverser chaque zip du dossier `dist/`.
+Compatibles Claude Code, claude.ai, Codex, OpenCode et Gemini CLI (format Agent Skills : voir le tableau des dossiers plus haut). Installation dans Claude Code : `/plugin marketplace add patron3z/local-business-skills` puis `/plugin install local-business-tools@local-business-skills`. Pour claude.ai : `python tools/build_zips.py` et téléverser chaque zip du dossier `dist/`.
 
 ## License
 
